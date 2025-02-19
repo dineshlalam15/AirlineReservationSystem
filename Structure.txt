@@ -1,0 +1,11 @@
+com.project
+│── AirlineReservationSystemApplication.java  ✅ Main class with @SpringBootApplication
+│── controller
+│   ├── AdminController.java
+│── service
+│   ├── CustomerService.java
+│── test
+│   ├── controller
+│       ├── AdminControllerTest.java ✅ Only has @WebMvcTest
+│── bean
+│   ├── CustomerBean.java

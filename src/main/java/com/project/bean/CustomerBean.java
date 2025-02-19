@@ -14,6 +14,13 @@ public class CustomerBean {
 		super();
 	}
 	
+	public CustomerBean(Integer customerId, String firstName, String email) {
+		super();
+		this.customerId = customerId;
+		this.firstName = firstName;
+		this.email = email;
+	}
+	
 	public CustomerBean(Integer customerId, String firstName, String lastName, Integer age, String gender, String email,
 			String phoneNo, String password) {
 		super();
