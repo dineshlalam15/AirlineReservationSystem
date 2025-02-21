@@ -22,7 +22,9 @@ public class CustomerEntity {
 	private String firstName;
 	@Column(name="last_name")
 	private String lastName;
+	@Column(nullable = false)
 	private Integer age;
+	@Column(nullable=false)
 	private String gender;
 	@Column(nullable=false,unique=true)
 	private String email;
@@ -95,7 +97,7 @@ public class CustomerEntity {
 		return password;
 	}
 	public void setPassword(String password) {
-	    this.password = new BCryptPasswordEncoder().encode(password);
+	    this.password = password;
 	}
 
 	

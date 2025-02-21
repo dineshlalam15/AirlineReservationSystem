@@ -40,5 +40,11 @@ public class AdminController {
 		CustomerBean customerDetails = customerService.getCustomerByID(customerId);
 		return new ResponseEntity<CustomerBean>(customerDetails, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="admin/controller/deleteCustomerbyid/{customerId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> deleteCustomer(@PathVariable String customerId){
+		String response = customerService.deleteCustomerByID(customerId);
+		return ResponseEntity.ok(response);
+	}
 
 }

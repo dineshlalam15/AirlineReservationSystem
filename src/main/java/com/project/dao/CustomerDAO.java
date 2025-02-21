@@ -7,4 +7,6 @@ import com.project.entity.CustomerEntity;
 
 @Repository
 public interface CustomerDAO extends JpaRepository<CustomerEntity, String>{
+	boolean existsByEmail(String email);
+	CustomerEntity findByEmail(String email);
 }
