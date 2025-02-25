@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.bean.CustomerBean; 
+import com.project.bean.AirlineBean;
+import com.project.bean.CustomerBean;
+import com.project.service.AirlineService;
 import com.project.service.CustomerService;
 
 @RestController
@@ -23,6 +25,8 @@ public class AdminController {
 	
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private AirlineService airlineService;
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	public String index() {
@@ -45,6 +49,12 @@ public class AdminController {
 	public ResponseEntity<String> deleteCustomer(@PathVariable String customerId){
 		String response = customerService.deleteCustomerByID(customerId);
 		return ResponseEntity.ok(response);
+	}
+	
+	@RequestMapping(value="admin/controller/getallairlines", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AirlineBean>> getAllAirlines(){
+		List<AirlineBean> airlineDetails = airlineService.getAllAirlines();
+		return new ResponseEntity<List<AirlineBean>>(airlineDetails,HttpStatus.OK);
 	}
 
 }

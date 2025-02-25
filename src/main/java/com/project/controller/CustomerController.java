@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.entity.CustomerEntity;
-import com.project.service.CustomerService;
+import com.project.entity.*;
+import com.project.service.*;
 
 @CrossOrigin(origins = "*")
 @RestController
