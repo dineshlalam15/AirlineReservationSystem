@@ -1,5 +1,8 @@
+use ars;
+drop table if exists flights;
+
 CREATE TABLE flights (
-    flight_id INT AUTO_INCREMENT PRIMARY KEY,
+flight_id INT AUTO_INCREMENT PRIMARY KEY,
     airline_id INT NOT NULL,
     flight_name VARCHAR(255) UNIQUE NOT NULL,
     source VARCHAR(255) NOT NULL,
@@ -8,8 +11,8 @@ CREATE TABLE flights (
     departure_time TIME NOT NULL,
     total_seats INT NOT NULL,
     booked_seats INT NOT NULL,
-    remaining_seats INT AS (total_seats - booked_seats) STORED,
-    FOREIGN KEY (airline_id) REFERENCES airlines(id) ON DELETE CASCADE
+    remaining_seats INT GENERATED ALWAYS AS (total_seats - booked_seats) STORED,
+    FOREIGN KEY (airline_id) REFERENCES airlines(airline_id) ON DELETE CASCADE
 );
 
 INSERT INTO flights (airline_id, flight_name, source, destination, arrival_time, departure_time, total_seats, booked_seats) 
@@ -33,3 +36,5 @@ VALUES
     (5, 'VIS56789', 'Bangalore', 'Hyderabad', '21:15:00', '19:00:00', 180, 75),
     (5, 'VIS43210', 'Delhi', 'Chandigarh', '09:30:00', '07:05:00', 150, 50),
     (5, 'VIS89012', 'Goa', 'Kolkata', '13:50:00', '11:30:00', 170, 65);
+
+SELECT * FROM flights
