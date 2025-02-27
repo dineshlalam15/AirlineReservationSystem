@@ -44,11 +44,24 @@ public class CustomerService {
 	public CustomerBean getCustomerByID(String customerId) {
 		CustomerBean cb = new CustomerBean();
 		Optional<CustomerEntity> entity  = customerDAO.findById(customerId);
-		if(entity.isPresent()) {
-			CustomerEntity customer = entity.get();
-			BeanUtils.copyProperties(customer, cb);
+		if(!entity.isPresent()) {
+			logger.info("Customer with this id doesn't exist");
+			return null;
 		}
+		CustomerEntity customer = entity.get();
+		BeanUtils.copyProperties(customer, cb);
 		return cb;
+	}
+	
+	public String deleteCustomerByID(String customerId) {
+	    Optional<CustomerEntity> entity = customerDAO.findById(customerId);
+	    if (entity.isEmpty()) {
+	        return "Invalid CustomerID";
+	    }
+	    logger.info("Deleting Customer with ID: {}", customerId);
+	    customerDAO.deleteById(customerId);
+	    
+	    return "Customer Deleted Successfully";
 	}
 	
 	public String newUserRegistration(CustomerEntity customer) {
@@ -77,12 +90,5 @@ public class CustomerService {
 	    return "Incorrect Password - Please try again";
 	}
 	
-	public String deleteCustomerByID(String customerId) {
-		if(customerId == null) {
-			return "Invalid CustomerID";
-		}
-		customerDAO.deleteById(customerId);
-		return "Customer Deleted Successfully";
-	}
 
 }

@@ -2,14 +2,10 @@ package com.project.controller;
 
 import java.util.List;
 
-import javax.print.attribute.standard.Media;
-
-import org.apache.catalina.connector.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.bean.AirlineBean;
 import com.project.bean.CustomerBean;
-import com.project.bean.FlightBean;
-import com.project.service.AirlineService;
 import com.project.service.CustomerService;
-import com.project.service.FlightService;
 
 @RestController
 public class AdminController {
@@ -31,10 +23,6 @@ public class AdminController {
 	
 	@Autowired
 	private CustomerService customerService;
-	@Autowired
-	private AirlineService airlineService;
-	@Autowired
-	private FlightService flightService;
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	public String index() {
@@ -58,26 +46,6 @@ public class AdminController {
 	public ResponseEntity<String> deleteCustomer(@PathVariable String customerId){
 		String response = customerService.deleteCustomerByID(customerId);
 		return ResponseEntity.ok(response);
-	}
-	
-//	AIRLINES:
-	@RequestMapping(value="admin/controller/getallairlines", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<AirlineBean>> getAllAirlines(){
-		List<AirlineBean> airlineDetails = airlineService.getAllAirlines();
-		return new ResponseEntity<List<AirlineBean>>(airlineDetails,HttpStatus.OK);
-	}
-	
-//	FLIGHTS:
-	@RequestMapping(value = "admin/controller/getallflights", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<FlightBean>> getAllFlights(){
-		List<FlightBean> flightDetails = flightService.getAllFlights();
-		return new ResponseEntity<List<FlightBean>>(flightDetails, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "admin/controller/{airline}/getallflights", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<FlightBean>> getAllFlightsByAirline(@PathVariable String airline){
-		List<FlightBean> flightDetails = airlineService.getAllFlights(airline);
-		return new ResponseEntity<List<FlightBean>>(flightDetails, HttpStatus.OK);
 	}
 
 }
